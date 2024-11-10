@@ -10,6 +10,14 @@
     .copyright {
         color: $blanco;
         text-align: center;
+        margin-top: $separacion / 2;
+        font-size: 1.2rem;
+    }
+
+    .navegacion {
+        display: flex;
+        justify-content: center;
+
     }
 
 }
