@@ -1,0 +1,23 @@
+.dark-mode {
+    background-color: $negro;
+    
+    p {
+        color: $blanco;
+    }
+
+    a, h1, h2, h3, h4 {
+        color: $gris;
+    }
+
+    .anuncio {
+        background-color: lighten($negro, 10);
+
+        .precio {
+            color: $gris;
+        }
+    }
+
+    .footer {
+        background-color: darken($negro, 4);
+    }
+}
