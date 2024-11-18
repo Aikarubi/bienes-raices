@@ -17,7 +17,28 @@
         }
     }
 
-    .footer {
+    .header, .footer {
         background-color: darken($negro, 4);
     }
+
+    .icono-departamento {
+        filter: invert(1);
+    }
+
+    .texto-nosotros blockquote {
+        color: $azul;
+    }
+
+    .formulario {
+        label, legend, p {
+            color: $gris;
+        }
+
+        input:not([type="submit"]), textarea, select {
+            background-color: lighten($negro, 10);
+            border-color: darken($negro, 5);
+            color: $blanco;
+        }
+    }
+
 }

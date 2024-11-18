@@ -18,6 +18,11 @@
         display: flex;
         justify-content: center;
 
-    }
+        @include tablet {
+            visibility: visible;
+            opacity: 1;
+            height: auto;
+        }
 
+    }
 }
