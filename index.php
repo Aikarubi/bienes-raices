@@ -1,42 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    $inicio = true;
+    include './includes/templates/header.php';
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienes Raices</title>
-    <link rel="stylesheet" href="/bienes-raices-php/build/css/app.css">
-    <link rel="icon" type="image/jpg" href="/bienes-raices-php/build/img/favicon.ico"/>
-</head>
-
-<body>
-
-    <header class="header inicio">
-        <div class="contenedor contenido-header">
-            <div class="barra">
-                <a href="index.html">
-                    <img src="/bienes-raices-php/build/img/logo.svg" alt="Logotipo de Bienes Raices">
-                </a>
-
-                <div class="mobile-menu">
-                    <img src="/bienes-raices-php/build/img/barras.svg" alt="Icono menu responsive">
-                </div>
-
-                <div class="derecha">
-                    <img class="dark-mode-boton" src="/bienes-raices-php/build/img/dark-mode.svg" alt="Dark Mode">
-                    <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
-                    </nav>
-                </div>
-
-            </div> <!--.barra-->
-
-            <h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>
-        </div>
-    </header>
+?>
 
     <main class="contenedor seccion">
         <h1>Más Sobre Nosotros</h1>
