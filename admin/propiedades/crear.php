@@ -2,7 +2,7 @@
 
 require '../../includes/config/database.php';
 $db = conectarBD();
-var_dump($db);
+//var_dump($db);
 
 require '../../includes/funciones.php';
 incluirTemplate('header');
@@ -13,7 +13,7 @@ incluirTemplate('header');
 <main class="contenedor seccion">
     <h1>Crear</h1>
 
-    <form class="formulario">
+    <form class="formulario" method="POST">
     <fieldset>
         <legend>Información General</legend>
 
@@ -55,7 +55,7 @@ incluirTemplate('header');
         </select>
     </fieldset>
 
-    <input type="submit" value="Crear Propiedad" class="boton boton-verde">
+    <input type="submit" value="Crear Propiedad" class="boton boton-azul">
     </form>
 
     <a href="../index.php" class="boton boton-verde">Volver</a>

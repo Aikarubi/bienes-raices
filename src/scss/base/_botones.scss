@@ -11,3 +11,8 @@
 .boton-verde {
     @include boton($azul, block);
 }
+
+.boton-azul {
+    @include boton($azul, block);
+    border: none;
+}
