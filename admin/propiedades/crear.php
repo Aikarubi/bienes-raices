@@ -74,6 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+$queryVendedores = "SELECT id, nombre, apellido FROM vendedores";
+$resultadoVendedores = mysqli_query($db, $queryVendedores);
+
 ?>
 
 
@@ -119,12 +123,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <fieldset>
             <legend>Vendedor</legend>
 
-            <label for="vendedor">Vendedor:</label>
-            <select id="vendedor" name="vendedor" value="<?php echo $vendedorId; ?>">
+            <select id="vendedor" name="vendedor">
                 <option value="" disabled selected>-- Seleccione --</option>
-                <option value="Andres">Andres</option>
-                <option value="Carlos">Carlos</option>
-                <option value="Juan">Juan</option>
+                <?php while ($vendedor = mysqli_fetch_assoc($resultadoVendedores) ) : ?>
+                    
+                    <option value="<?php echo $vendedor['id']; ?>"><?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?></option>
+
+                <?php endwhile; ?>
             </select>
         </fieldset>
 
