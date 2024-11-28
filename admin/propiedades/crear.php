@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo'] ); // Esto hace que este valor no contenga caracteres especiales
     $precio = mysqli_real_escape_string($db, $_POST['precio'] );
-    //$imagen = $_FILES['imagen'];
+    $imagen = $_FILES['imagen'];
     $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
     $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
     $wc = mysqli_real_escape_string($db, $_POST['wc'] );
@@ -52,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($descripcion) < 50) {
         $errores[] = 'La Descripción es obligatoria';
     }
+    if (!$imagen['name'] || $imagen['error']) {
+        $errores[] = 'Debes seleccionar una imagen';
+    }
     if (!$habitaciones) {
         $errores[] = 'El número de Habitaciones es obligatorio';
     }
@@ -63,6 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (!$vendedores_id) {
         $errores[] = 'El Seleccione un Vendedor es obligatorio';
+    }
+
+    // Validar la imagen (100 Kb maximum)
+
+    $medida = 1000 * 200;
+
+    if ($imagen['size'] > $medida) {
+        $errores[] = 'La imagen es muy pesada';
     }
 
     //exit;
