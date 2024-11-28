@@ -33,14 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var_dump($_POST);
     echo "</pre>";*/
 
-    $titulo = $_POST['titulo'];
-    $precio = $_POST['precio'];
+    $titulo = mysqli_real_escape_string($db, $_POST['titulo'] ); // Esto hace que este valor no contenga caracteres especiales
+    $precio = mysqli_real_escape_string($db, $_POST['precio'] );
     //$imagen = $_FILES['imagen'];
-    $descripcion = $_POST['descripcion'];
-    $habitaciones = $_POST['habitaciones'];
-    $wc = $_POST['wc'];
-    $estacionamiento = $_POST['estacionamiento'];
-    $vendedores_id = $_POST['vendedor'];
+    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
+    $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
+    $wc = mysqli_real_escape_string($db, $_POST['wc'] );
+    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] );
+    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor'] );
     $creado = date('Y/m/d');
 
     if (!$titulo) {
