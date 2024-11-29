@@ -33,14 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     var_dump($_POST);
     echo "</pre>";*/
 
-    $titulo = mysqli_real_escape_string($db, $_POST['titulo'] ); // Esto hace que este valor no contenga caracteres especiales
-    $precio = mysqli_real_escape_string($db, $_POST['precio'] );
+    $titulo = mysqli_real_escape_string($db, $_POST['titulo']); // Esto hace que este valor no contenga caracteres especiales
+    $precio = mysqli_real_escape_string($db, $_POST['precio']);
     $imagen = $_FILES['imagen'];
-    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
-    $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
-    $wc = mysqli_real_escape_string($db, $_POST['wc'] );
-    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] );
-    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor'] );
+    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+    $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+    $wc = mysqli_real_escape_string($db, $_POST['wc']);
+    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']);
     $creado = date('Y/m/d');
 
     if (!$titulo) {
@@ -68,9 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'El Seleccione un Vendedor es obligatorio';
     }
 
-    // Validar la imagen (100 Kb maximum)
+    // Validar la imagen (1 mb maximum)
 
-    $medida = 1000 * 100;
+    $medida = 1000 * 1000;
 
     if ($imagen['size'] > $medida) {
         $errores[] = 'La imagen es muy pesada';
@@ -81,6 +81,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Revisar que el array de errores este vacio
 
     if (empty($errores)) {
+
+        /* SUBIDA DE ARCHIVOS*/
+
+        //crear carpeta
+        $carpetaImagenes = '../../imagenes';
+
+        if (!is_dir($carpetaImagenes)) {
+            mkdir($carpetaImagenes);
+        }
+
+        //Subida de imagenes
+        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . '/' . $imagen['name']);
+
+        exit;
+
         // Insertar en la base de datos
         $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
           VALUES ('$titulo', $precio, '$descripcion', $habitaciones, $wc, $estacionamiento, '$creado', $vendedores_id)";
