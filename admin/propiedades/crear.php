@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 require '../../includes/config/database.php';
 $db = conectarBD();
-var_dump($db);
+//var_dump($db);
 
 require '../../includes/funciones.php';
 incluirTemplate('header');
@@ -20,6 +20,7 @@ $resultadoVendedores = mysqli_query($db, $queryVendedores);
 
 $titulo = '';
 $precio = '';
+$imagen = '';
 $descripcion = '';
 $habitaciones = '';
 $wc = '';
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($imagen['size'] > $medida) {
         $errores[] = 'La imagen es muy pesada';
     }
-
+    
     //exit;
 
     // Revisar que el array de errores este vacio
@@ -87,19 +88,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //crear carpeta
         $carpetaImagenes = '../../imagenes';
 
+
         if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes);
+             mkdir($carpetaImagenes, 0755, true);
         }
 
-        //Subida de imagenes
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . '/' . $imagen['name']);
+        //Generar un nombre unico
+        $imagenNombre = md5(uniqid(rand(), true)) . ".jpg";
 
-        exit;
+        //Subida de imagenes
+        //move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . '/' . $imagenNombre);
+        copy($imagen['tmp_name'], $carpetaImagenes . "/" . $imagenNombre);
+
+        //exit;
 
         // Insertar en la base de datos
-        $query = "INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-          VALUES ('$titulo', $precio, '$descripcion', $habitaciones, $wc, $estacionamiento, '$creado', $vendedores_id)";
-
+        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
+          VALUES ('$titulo', $precio, '$imagenNombre', '$descripcion', $habitaciones, $wc, $estacionamiento, '$creado', $vendedores_id)";
 
         //echo $query;
 
@@ -118,9 +123,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "</pre>";
         exit;*/
 
+        ///bienes-raices-php/admin/propiedades/crear.php
 
         if ($resultadoo) {
-            header('Location: /admin/index.php');
+            header('Location: /bienes-raices-php/admin/index.php');
             exit;
         }
     }
@@ -138,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endforeach; ?>
 
-    <form class="formulario" method="POST">
+    <form class="formulario" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Información General</legend>
 
@@ -150,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
+
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php echo $descripcion; ?></textarea>
