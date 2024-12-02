@@ -14,3 +14,24 @@
         background-color: $azul;
     }
 }
+
+table.propiedades {
+    margin-top: 4rem;
+    width: 100%;
+    border-spacing: 0;
+
+    thead {
+        background-color: $azulOscuro;
+
+        th {
+            padding: 2rem;
+            color: $negro;
+        }
+    }
+
+    .imagen-tabla {
+        width: 10rem;
+    }
+
+    tbody {}
+}
