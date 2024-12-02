@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ///bienes-raices-php/admin/propiedades/crear.php
 
         if ($resultadoo) {
-            header('Location: /bienes-raices-php/admin/index.php');
+            header('Location: /bienes-raices-php/admin/index.php?mensaje=1');
             exit;
         }
     }
