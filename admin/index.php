@@ -39,16 +39,18 @@ incluirTemplate('header');
             </tr>
         </thead>
         <tbody> <!-- Mostrar los resultados -->
+            <?php while( $propiedades = mysqli_fetch_assoc($resultados)): ?>
             <tr>
-                <td>1</td>
-                <td>Casa en venta frente al bosque</td>
-                <td><img src="/bienes-raices-php/build/img/destacada.webp" class="imagen-tabla" alt="imagen casa"></td>
-                <td>$3.000.000</td>
+                <td><?php echo $propiedades['id']; ?></td>
+                <td><?php echo $propiedades['titulo']; ?></td>
+                <td><img src="/bienes-raices-php/imagenes/<?php echo $propiedades['imagen']; ?>" class="imagen-tabla"></td>
+                <td>$<?php echo $propiedades['precio']; ?></td>
                 <td>
                     <a href="#" class="boton-amarillo-block">Actualizar</a>
                     <a href="#" class="boton-rojo-block">Eliminar</a>
                 </td>
             </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
 
