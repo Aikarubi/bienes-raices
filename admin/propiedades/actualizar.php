@@ -65,9 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strlen($descripcion) < 50) {
         $errores[] = 'La Descripción es obligatoria';
     }
-    if (!$imagen['name'] || $imagen['error']) {
-        $errores[] = 'Debes seleccionar una imagen';
-    }
     if (!$habitaciones) {
         $errores[] = 'El número de Habitaciones es obligatorio';
     }
@@ -111,15 +108,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //exit;
 
         // Insertar en la base de datos
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-          VALUES ('$titulo', $precio, '$imagenNombre', '$descripcion', $habitaciones, $wc, $estacionamiento, '$creado', $vendedores_id)";
+        $query = "UPDATE propiedades SET titulo = '$titulo', precio = $precio, descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamiento, vendedores_id = $vendedores_id WHERE id = $id";
 
         //echo $query;
 
         $resultadoo = mysqli_query($db, $query);
 
         if ($resultadoo) {
-            header('Location: /bienes-raices-php/admin/index.php?mensaje=1');
+            header('Location: /bienes-raices-php/admin/index.php?mensaje=2');
             exit;
         }
     }
