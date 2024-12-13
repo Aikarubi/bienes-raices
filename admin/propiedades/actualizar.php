@@ -23,24 +23,28 @@ incluirTemplate('header');
 //Arreglo con mensajes de errores
 $errores = [];
 
+//Consulta para obtener la propiedad
+$consulta = "SELECT * FROM propiedades WHERE id = '$id'";
+$resultado =  mysqli_query($db, $consulta);
+$propiedad = mysqli_fetch_assoc($resultado);
+
+//Consulta para obtener los vendedores
 $queryVendedores = "SELECT * FROM vendedores";
 $resultadoVendedores = mysqli_query($db, $queryVendedores);
 
-$titulo = '';
-$precio = '';
+$titulo = $propiedad['titulo'];
+$precio = $propiedad['precio'];
 $imagen = '';
-$descripcion = '';
-$habitaciones = '';
-$wc = '';
-$estacionamiento = '';
-$vendedores_id = '';
+$descripcion = $propiedad['descripcion'];
+$habitaciones = $propiedad['habitaciones'];
+$wc = $propiedad['wc'];
+$estacionamiento = $propiedad['estacionamiento'];
+$vendedores_id = $propiedad['vendedores_id'];
+$imagenPropiedad = $propiedad['imagen'];
 
 //Ejecutar el codigo despues de q el usuario envia el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    /* echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";*/
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']); // Esto hace que este valor no contenga caracteres especiales
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -77,15 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'El Seleccione un Vendedor es obligatorio';
     }
 
-    // Validar la imagen (1 mb maximum)
-
     $medida = 1000 * 1000;
 
     if ($imagen['size'] > $medida) {
         $errores[] = 'La imagen es muy pesada';
     }
-    
-    //exit;
 
     // Revisar que el array de errores este vacio
 
@@ -117,21 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //echo $query;
 
         $resultadoo = mysqli_query($db, $query);
-
-        //echo $resultado;
-
-        /*if (!$resultadoo) {
-            echo "Error en la consulta: " . mysqli_error($db);
-            echo "Consulta: " . $query;
-            exit;
-        }
-
-        echo "<pre>";
-        var_dump($titulo, $precio, $descripcion, $habitaciones, $wc, $estacionamiento, $vendedores_id, $creado);
-        echo "</pre>";
-        exit;*/
-
-        ///bienes-raices-php/admin/propiedades/crear.php
 
         if ($resultadoo) {
             header('Location: /bienes-raices-php/admin/index.php?mensaje=1');
@@ -165,6 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
 
+
+            <img src="/bienes-raices-php/imagenes/<?php echo $imagenPropiedad; ?>" class="imagen-small">
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php echo $descripcion; ?></textarea>
