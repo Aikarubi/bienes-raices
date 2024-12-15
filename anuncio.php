@@ -3,11 +3,27 @@
 require 'includes/config/database.php';
 $db = conectarBD();
 
+//Sacar la ID
+$id = $_GET['id'];
+
+//Validar la URL por ID válido
+$id = filter_var($id, FILTER_VALIDATE_INT);
+
+if (!$id) {
+    header('Location: /bienes-raices-php/index.php');
+}   
+
 //Consultar
-$query = "SELECT * FROM propiedades WHERE id = '$_GET[id]'";
+$query = "SELECT * FROM propiedades WHERE id = '$id'";
 
 //Obtener resultados
 $resultado = mysqli_query($db, $query);
+
+//Si no hay resultados redireccionar a la página principal
+if($resultado->num_rows === 0) {
+    header('Location: /bienes-raices-php/index.php');
+}
+
 
 require 'includes/funciones.php';
 incluirTemplate('header');
