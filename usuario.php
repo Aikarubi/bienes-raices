@@ -8,8 +8,11 @@ $db = conectarBD();
 $email = 'correo@correo.com';
 $contrasenya = '123456';
 
-//Query para crear el usuario
-$query = " INSERT INTO usuarios (email, contrasenya) VALUES ('$email', '$contrasenya'); ";
+$contrasenyaHash = password_hash($contrasenya, PASSWORD_BCRYPT);
 
+//Query para crear el usuario
+$query = " INSERT INTO usuarios (email, contrasenya) VALUES ('$email', '$contrasenyaHash'); ";
+
+//exit;
 //Agregarlo a la base de datos
 mysqli_query($db, $query);
