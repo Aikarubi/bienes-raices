@@ -7,15 +7,29 @@ $db = conectarBD();
 //AUTENTICAR USUARIO
 $errores = [];
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
-     $email = mysqli_real_escape_string($db, filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-     $contrasenya = mysqli_real_escape_string($db, $_POST['contrasenya']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = mysqli_real_escape_string($db, filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
+    $contrasenya = mysqli_real_escape_string($db, $_POST['contrasenya']);
 
-     if(!$email) { $errores[] = 'El E-mail es obligatorio'; }
+    if (!$email) {
+        $errores[] = 'El E-mail es obligatorio';
+    }
 
-     if(!$contrasenya) { $errores[] = 'La Contraseña es obligatoria'; }
+    if (!$contrasenya) {
+        $errores[] = 'La Contraseña es obligatoria';
+    }
 
-     if(empty($errores)) { $errores[] = 'E-mail o Contraseña Incorrectos'; }
+    if (empty($errores)) {
+        //Revisar si el usuario existe
+        $query = "SELECT * FROM usuarios WHERE email = '$email'";
+        $resultado = mysqli_query($db, $query);
+
+        if ($resultado->num_rows) {
+            //Revisar si el password es correcto
+        } else {
+            $errores[] = 'El usuario no existe';
+        }
+    }
 }
 
 require 'includes/funciones.php';
@@ -27,14 +41,14 @@ incluirTemplate('header');
 <main class="contenedor seccion contenido-centrado">
     <h1>Iniciar Sesión</h1>
 
-    <?php foreach($errores as $error): ?>
+    <?php foreach ($errores as $error): ?>
         <div class="alerta error">
             <?php echo $error; ?>
         </div>
     <?php endforeach; ?>
 
     <form method="$_POST" class="formulario">
-    <fieldset>
+        <fieldset>
             <legend>Email y Contraseña</legend>
 
             <label for="email">E-mail:</label>
