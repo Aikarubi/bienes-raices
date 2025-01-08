@@ -26,6 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($resultado->num_rows) {
             //Revisar si el password es correcto
+            $usuario = mysqli_fetch_assoc($resultado);
+
+            // Verficar el password es correcto
+            $auth = password_verify($contrasenya, $usuario['contrasenya']);
+
+            if ($auth) {
+                //El usuario esta autenticado
+                session_start();
+                $_SESSION['usuario'] = $usuario['email'];
+                $_SESSION['login'] = true;
+
+                header('Location: /bienes-raices-php/admin/index.php');
+            } else {
+                $errores[] = 'El password es incorrecto';
+            }
         } else {
             $errores[] = 'El usuario no existe';
         }
