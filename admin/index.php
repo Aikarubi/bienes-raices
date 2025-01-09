@@ -1,13 +1,14 @@
 <?php
 
-session_start();
+// Incluye un template
+require '../includes/funciones.php';
+incluirTemplate('header');
 
-$auth = $_SESSION['login'];
+$auth = estaAutenticado();
 
-if(!$auth) {
+if (!$auth) {
     header('Location: /bienes-raices-php/index.php');
 }
-
 // Importar la conexión
 require '../includes/config/database.php';
 $db = conectarBD();
@@ -44,9 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Incluye un template
-require '../includes/funciones.php';
-incluirTemplate('header');
 
 ?>
 

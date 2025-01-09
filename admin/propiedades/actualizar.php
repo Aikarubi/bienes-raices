@@ -4,6 +4,14 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+require '../../includes/funciones.php';
+incluirTemplate('header');
+
+$auth = estaAutenticado();
+
+if (!$auth) {
+    header('Location: /bienes-raices-php/index.php');
+}
 
 //Validar la URL por ID válido
 $id = $_GET['id'];
@@ -17,8 +25,7 @@ require '../../includes/config/database.php';
 $db = conectarBD();
 //var_dump($db);
 
-require '../../includes/funciones.php';
-incluirTemplate('header');
+
 
 //Arreglo con mensajes de errores
 $errores = [];
