@@ -1,3 +1,13 @@
+<?php
+
+if (!isset($_SESSION['login'])) {
+    session_start();
+}
+
+$auth = $_SESSION['login'] ?? null;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +24,7 @@
     <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
-                <a href="index.php">
+                <a href="/bienes-raices-php/index.php">
                     <img src="/bienes-raices-php/build/img/logo.svg" alt="Logotipo de Bienes Raices">
                 </a>
 
@@ -25,14 +35,19 @@
                 <div class="derecha">
                     <img class="dark-mode-boton" src="/bienes-raices-php/build/img/dark-mode.svg" alt="Dark Mode">
                     <nav class="navegacion">
-                        <a href="nosotros.php">Nosotros</a>
-                        <a href="anuncios.php">Anuncios</a>
-                        <a href="blog.php">Blog</a>
-                        <a href="contacto.php">Contacto</a>
+                        <a href="/bienes-raices-php/nosotros.php">Nosotros</a>
+                        <a href="/bienes-raices-php/anuncios.php">Anuncios</a>
+                        <a href="/bienes-raices-php/blog.php">Blog</a>
+                        <a href="/bienes-raices-php/contacto.php">Contacto</a>
+                        <?php if ($auth): ?>
+                            <a href="/bienes-raices-php/cerrar-sesion.php">Cerrar Sesión</a>
+                        <?php endif; ?>
                     </nav>
                 </div>
 
             </div> <!--.barra-->
-            <?php if ($inicio) { echo '<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>'; } ?>
+            <?php if ($inicio) {
+                echo '<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>';
+            } ?>
         </div>
     </header>
