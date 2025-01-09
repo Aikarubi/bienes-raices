@@ -12,6 +12,12 @@ $db = conectarBD();
 require '../../includes/funciones.php';
 incluirTemplate('header');
 
+$auth = estaAutenticado();
+
+if (!$auth) {
+    header('Location: /bienes-raices-php/index.php');
+}
+
 //Arreglo con mensajes de errores
 $errores = [];
 
