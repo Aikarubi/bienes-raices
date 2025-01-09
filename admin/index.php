@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+$auth = $_SESSION['login'];
+
+if(!$auth) {
+    header('Location: /bienes-raices-php/index.php');
+}
+
 // Importar la conexión
 require '../includes/config/database.php';
 $db = conectarBD();

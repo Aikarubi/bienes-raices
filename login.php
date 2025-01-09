@@ -62,7 +62,7 @@ incluirTemplate('header');
         </div>
     <?php endforeach; ?>
 
-    <form method="$_POST" class="formulario">
+    <form method="POST" class="formulario">
         <fieldset>
             <legend>Email y Contraseña</legend>
 
