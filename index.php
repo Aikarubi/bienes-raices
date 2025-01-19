@@ -50,7 +50,7 @@ incluirTemplate('header', $inicio = true);
 <section class="imagen-contacto">
     <h2>Encuentra la casa de tus sueños</h2>
     <p>Rellena el formulario de contacto y un asesor se pondra en contacto contigo a la brevedad</p>
-    <a href="contacto.html" class="boton-amarillo">Contactános</a>
+    <a href="/bienes-raices-php/contacto.php" class="boton-amarillo">Contactános</a>
 </section>
 
 <div class="contenedor seccion seccion-inferior">
