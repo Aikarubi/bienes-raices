@@ -79,11 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <td><img src="/bienes-raices-php/imagenes/<?php echo $propiedades['imagen']; ?>" class="imagen-tabla"></td>
                     <td>$<?php echo $propiedades['precio']; ?></td>
                     <td>
-                        <a href="/bienes-raices-php/admin/propiedades/actualizar.php?id=<?php echo $propiedades['id']; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="/bienes-raices-php/admin/propiedades/actualizar.php?id=<?php echo $propiedades['id']; ?>" class="boton-gris">Actualizar</a>
 
                         <form method="POST" class="w-100">
                             <input type="hidden" name="id" value="<?php echo $propiedades['id']; ?>">
-                            <input type="submit" class="boton-rojo-block" value="Eliminar">
+                            <input type="submit" class="boton-grisOscuro" value="Eliminar">
                         </form>
                     </td>
                 </tr>

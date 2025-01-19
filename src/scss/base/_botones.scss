@@ -23,3 +23,15 @@
     border-bottom-right-radius: 1rem;
     width: 100%;
 }
+
+.boton-gris {
+    @include boton($grisClaro, block);
+    border: none;
+}
+
+.boton-grisOscuro {
+    @include boton($grisOscuro, block);
+    border: none;
+    width: 100%;
+    padding: 1.5rem 0;
+}
